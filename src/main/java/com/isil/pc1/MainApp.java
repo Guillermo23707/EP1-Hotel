@@ -36,17 +36,21 @@ public class MainApp {
         //System.out.println("Filas afectadas:" + filasAfectadas);
 
         //**Eliminar**//
-        int filasAfectadas=
-                stCreate.executeUpdate("delete from clientes where idCli=7");
-        System.out.println("Filas afectadas:" + filasAfectadas);
+        //int filasAfectadas=
+        //        stCreate.executeUpdate("delete from clientes where idCli=7");
+        //System.out.println("Filas afectadas:" + filasAfectadas);
 
         // 3.2 Statement consulta
-        PreparedStatement preparedStatement =
-                con.prepareStatement("select * from clientes where idCli=? ");
+        //PreparedStatement preparedStatement =
+         //       con.prepareStatement("select * from clientes where idCli=? ");
 
-        preparedStatement.setInt(1,7);
+       // preparedStatement.setInt(1,7);
 
-    ResultSet resultSet2 = preparedStatement.executeQuery();
+        CallableStatement callSp = con.prepareCall("{call sp_mostrarClientes}");
+
+        ResultSet resultado = callSp.executeQuery();
+
+    //ResultSet resultSet2 = preparedStatement.executeQuery();
 
     //while (result.next()){
     //    System.out.println(result.getString("idCli"));
@@ -57,13 +61,22 @@ public class MainApp {
         //  System.out.println(result.getString("telefonoCli"));
     //}
 
-        while(resultSet2.next()){
-            System.out.println(resultSet2.getString("idCli") + "\n"+
-                    resultSet2.getString("paisCli") + "\n"+
-                    resultSet2.getString("nombreCli") + "\n"+
-                    resultSet2.getString("apellidoCli") + "\n"+
-                    resultSet2.getString("direccionCli") + "\n"+
-                    resultSet2.getString("telefonoCli"));
+    //    while(resultSet2.next()){
+    //        System.out.println(resultSet2.getString("idCli") + "\n"+
+     //               resultSet2.getString("paisCli") + "\n"+
+    //               resultSet2.getString("nombreCli") + "\n"+
+     //               resultSet2.getString("apellidoCli") + "\n"+
+     //               resultSet2.getString("direccionCli") + "\n"+
+     //               resultSet2.getString("telefonoCli"));
+      //  }
+
+        while (resultado.next()){
+            System.out.println(resultado.getString("idCli"));
+            System.out.println(resultado.getString("paisCli"));
+            System.out.println(resultado.getString("nombreCli"));
+            System.out.println(resultado.getString("apellidoCli"));
+            System.out.println(resultado.getString("direccionCli"));
+            System.out.println(resultado.getString("telefonoCli"));
         }
         con.close();
     }
