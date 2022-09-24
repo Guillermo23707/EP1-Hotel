@@ -17,7 +17,9 @@ public class MainApp {
 
     Statement Stmt= con.createStatement();
 
+
     ResultSet result= Stmt.executeQuery("select * from clientes");
+
 
     while (result.next()){
         System.out.println(result.getString("idCli"));
